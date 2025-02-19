@@ -1,5 +1,5 @@
 //
-//  FamilyViewController.swift
+//  FamilyListViewController.swift
 //  Family
 //
 //  Created by Ilyas on 19.02.2025.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FamilyViewController: UIViewController {
+class FamilyListViewController: UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var clearButton: UIButton!
