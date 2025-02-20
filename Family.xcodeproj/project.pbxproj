@@ -10,6 +10,12 @@
 		28B99F002D6631CD008D4FBA /* ParentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B99EFF2D6631CD008D4FBA /* ParentCell.swift */; };
 		28B99F022D6631E5008D4FBA /* ChildCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B99F012D6631E5008D4FBA /* ChildCell.swift */; };
 		28D404062D66B72A009C63F1 /* Extension + UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D404052D66B72A009C63F1 /* Extension + UIButton.swift */; };
+		28D730892D6795B7002E4471 /* FamilyListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D730882D6795B7002E4471 /* FamilyListPresenter.swift */; };
+		28D7308B2D6795D9002E4471 /* FamilyListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7308A2D6795D9002E4471 /* FamilyListInteractor.swift */; };
+		28D7308D2D679614002E4471 /* FamilyListConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7308C2D679614002E4471 /* FamilyListConfigurator.swift */; };
+		28D730902D679793002E4471 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7308F2D679793002E4471 /* Person.swift */; };
+		28D730922D6797D2002E4471 /* Family.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D730912D6797D2002E4471 /* Family.swift */; };
+		28D730982D679F6F002E4471 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D730972D679F6F002E4471 /* StorageManager.swift */; };
 		28FF71BA2D6577D5001B4BE1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FF71B92D6577D5001B4BE1 /* AppDelegate.swift */; };
 		28FF71BC2D6577D5001B4BE1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FF71BB2D6577D5001B4BE1 /* SceneDelegate.swift */; };
 		28FF71BE2D6577D5001B4BE1 /* FamilyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FF71BD2D6577D5001B4BE1 /* FamilyListViewController.swift */; };
@@ -23,6 +29,12 @@
 		28B99EFF2D6631CD008D4FBA /* ParentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParentCell.swift; sourceTree = "<group>"; };
 		28B99F012D6631E5008D4FBA /* ChildCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCell.swift; sourceTree = "<group>"; };
 		28D404052D66B72A009C63F1 /* Extension + UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIButton.swift"; sourceTree = "<group>"; };
+		28D730882D6795B7002E4471 /* FamilyListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyListPresenter.swift; sourceTree = "<group>"; };
+		28D7308A2D6795D9002E4471 /* FamilyListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyListInteractor.swift; sourceTree = "<group>"; };
+		28D7308C2D679614002E4471 /* FamilyListConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyListConfigurator.swift; sourceTree = "<group>"; };
+		28D7308F2D679793002E4471 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		28D730912D6797D2002E4471 /* Family.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Family.swift; sourceTree = "<group>"; };
+		28D730972D679F6F002E4471 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		28FF71B62D6577D5001B4BE1 /* Family.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Family.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		28FF71B92D6577D5001B4BE1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		28FF71BB2D6577D5001B4BE1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +62,9 @@
 			children = (
 				28B99EFC2D663187008D4FBA /* Cells */,
 				28FF71BD2D6577D5001B4BE1 /* FamilyListViewController.swift */,
+				28D730882D6795B7002E4471 /* FamilyListPresenter.swift */,
+				28D7308A2D6795D9002E4471 /* FamilyListInteractor.swift */,
+				28D7308C2D679614002E4471 /* FamilyListConfigurator.swift */,
 			);
 			path = FamilyList;
 			sourceTree = "<group>";
@@ -87,6 +102,23 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		28D7308E2D679771002E4471 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				28D730912D6797D2002E4471 /* Family.swift */,
+				28D7308F2D679793002E4471 /* Person.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		28D730962D679F5C002E4471 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				28D730972D679F6F002E4471 /* StorageManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		28FF71AD2D6577D5001B4BE1 = {
 			isa = PBXGroup;
 			children = (
@@ -106,8 +138,10 @@
 		28FF71B82D6577D5001B4BE1 /* Family */ = {
 			isa = PBXGroup;
 			children = (
-				28D404042D66B6E2009C63F1 /* Extensions */,
 				28B99EFB2D663161008D4FBA /* FamilyList */,
+				28D730962D679F5C002E4471 /* Services */,
+				28D7308E2D679771002E4471 /* Entities */,
+				28D404042D66B6E2009C63F1 /* Extensions */,
 				28FF71CE2D657CC6001B4BE1 /* Storyboard */,
 				28FF71CF2D657CD3001B4BE1 /* Resources */,
 				28FF71CD2D657CAE001B4BE1 /* Supporting Files */,
@@ -219,11 +253,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28D730902D679793002E4471 /* Person.swift in Sources */,
 				28FF71BE2D6577D5001B4BE1 /* FamilyListViewController.swift in Sources */,
 				28D404062D66B72A009C63F1 /* Extension + UIButton.swift in Sources */,
+				28D730982D679F6F002E4471 /* StorageManager.swift in Sources */,
 				28B99F002D6631CD008D4FBA /* ParentCell.swift in Sources */,
+				28D730922D6797D2002E4471 /* Family.swift in Sources */,
+				28D730892D6795B7002E4471 /* FamilyListPresenter.swift in Sources */,
+				28D7308D2D679614002E4471 /* FamilyListConfigurator.swift in Sources */,
 				28B99F022D6631E5008D4FBA /* ChildCell.swift in Sources */,
 				28FF71BA2D6577D5001B4BE1 /* AppDelegate.swift in Sources */,
+				28D7308B2D6795D9002E4471 /* FamilyListInteractor.swift in Sources */,
 				28FF71BC2D6577D5001B4BE1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

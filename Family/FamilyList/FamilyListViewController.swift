@@ -7,6 +7,16 @@
 
 import UIKit
 
+protocol FamilyListViewInputProtocol: AnyObject {
+  
+}
+
+protocol FamilyListViewOutputProtocol {
+  func addMyChild()
+  func deleteChild()
+  func clearFamily()
+}
+
 class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {
   
   @IBOutlet weak var tableView: UITableView!
@@ -33,6 +43,10 @@ class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {
   }
   
   @objc private func addMyChild() {
+    
+  }
+  
+  private func deleteChild() {
     
   }
   
