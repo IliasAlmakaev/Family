@@ -21,6 +21,10 @@ final class StorageManager {
     family = decoded
   }
   
+  func getFamily() -> Family? {
+    family
+  }
+  
   func addParentName(_ name: String) {
     family?.parent.name = name
     save()

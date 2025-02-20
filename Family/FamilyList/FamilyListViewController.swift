@@ -12,9 +12,14 @@ protocol FamilyListViewInputProtocol: AnyObject {
 }
 
 protocol FamilyListViewOutputProtocol {
+  func viewDidLoad()
   func addMyChild()
   func deleteChild()
   func clearFamily()
+}
+
+protocol ChildCellDelegate: AnyObject {
+  func deleteChild(withCell cell: ChildCell)
 }
 
 class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {

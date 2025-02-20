@@ -13,6 +13,11 @@ struct FamilyListDataStore {
 
 final class FamilyListPresenter: FamilyListViewOutputProtocol {
   
+  private var dataStore: FamilyListDataStore?
+  
+  func viewDidLoad() {
+    
+  }
   
   func addMyChild() {
     
@@ -24,5 +29,12 @@ final class FamilyListPresenter: FamilyListViewOutputProtocol {
   
   func clearFamily() {
     
+  }
+}
+
+// MARK: - FamilyListInteractorOutputProtocol
+extension FamilyListPresenter: FamilyListInteractorOutputProtocol {
+  func familyDidReceive(with dataStore: FamilyListDataStore) {
+    self.dataStore = dataStore
   }
 }
