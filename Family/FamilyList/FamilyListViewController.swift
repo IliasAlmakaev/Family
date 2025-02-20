@@ -28,6 +28,8 @@ class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {
     let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
     tap.delegate = self
     view.addGestureRecognizer(tap)
+    
+    clearButton.roundedAndBordered(withColor: .red)
   }
   
   @objc private func addMyChild() {
@@ -110,10 +112,10 @@ extension FamilyListViewController: UITableViewDelegate {
       
       let button = UIButton()
       button.addTarget(self, action: #selector(addMyChild), for: .touchUpInside)
-      button.setTitleColor(.systemBlue, for: .normal)
       button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
       button.setTitle("Добавить ребенка", for: .normal)
       button.setImage(UIImage(systemName: "plus"), for: .normal)
+      button.roundedAndBordered(withColor: .systemBlue)
       
       view.addSubview(label)
       view.addSubview(button)
@@ -128,12 +130,14 @@ extension FamilyListViewController: UITableViewDelegate {
         button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
       ])
       
+      
+      
       return view
     }
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    44
+    64
   }
 }
 
