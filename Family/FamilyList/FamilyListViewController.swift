@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FamilyListViewController: UIViewController, UITextFieldDelegate {
+class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var clearButton: UIButton!
@@ -15,10 +15,6 @@ class FamilyListViewController: UIViewController, UITextFieldDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
-  }
-  
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    self.view.endEditing(true)
   }
 
   @IBAction func clearButtonPressed() {
@@ -28,15 +24,18 @@ class FamilyListViewController: UIViewController, UITextFieldDelegate {
     if #available(iOS 15.0, *) {
       tableView.sectionHeaderTopPadding = 0.0
     }
+    
+    let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+    tap.delegate = self
+    view.addGestureRecognizer(tap)
   }
   
   @objc private func addMyChild() {
     
   }
   
-  // TODO: - Скрывать клавиатуру
-  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    textField.resignFirstResponder()
+  @objc private func handleTap() {
+    view.endEditing(true)
   }
 }
 
@@ -135,5 +134,13 @@ extension FamilyListViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
     44
+  }
+}
+
+// MARK: - UITextFieldDelegate
+extension FamilyListViewController: UITextFieldDelegate {
+  func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    textField.resignFirstResponder()
+    return true
   }
 }
