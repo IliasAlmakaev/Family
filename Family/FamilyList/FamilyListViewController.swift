@@ -8,7 +8,10 @@
 import UIKit
 
 protocol FamilyListViewInputProtocol: AnyObject {
-  
+  func reloadData(
+    forParent parentRows: [ParentCellViewModel],
+    andChildren childRows: [ChildCellViewModel]
+  )
 }
 
 protocol FamilyListViewOutputProtocol {
@@ -27,9 +30,18 @@ class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var clearButton: UIButton!
   
+  var presenter: FamilyListViewOutputProtocol!
+  
+  private let configurator: FamilyListConfiguratorInputProtocol = FamilyListConfigurator()
+  
+  private var parentRows: [ParentCellViewModelProtocol] = []
+  private var childRows: [ChildCellViewModelProtocol] = []
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    configurator.configure(withView: self)
     setupUI()
+    presenter.viewDidLoad()
   }
 
   @IBAction func clearButtonPressed() {
@@ -70,8 +82,8 @@ extension FamilyListViewController: UITableViewDataSource {
     if section == 0 {
       return 1
     } else {
-      // TODO: - Добавить массив с детьми
-      return 1
+      // TODO: - Добавить логику для пустого массива с детьми, добавить пустую ячейку
+      return childRows.count
     }
   }
   
@@ -79,6 +91,10 @@ extension FamilyListViewController: UITableViewDataSource {
     if indexPath.section == 0 {
       let cell = tableView.dequeueReusableCell(withIdentifier: "ParentCell", for: indexPath)
       guard let cell = cell as? ParentCell else { return UITableViewCell() }
+      
+      if parentRows.count != 0 {
+        cell.viewModel = parentRows[0]
+      }
       
       cell.nameTextField.delegate = self
       cell.ageTextField.delegate = self
@@ -90,11 +106,13 @@ extension FamilyListViewController: UITableViewDataSource {
       let cell = tableView.dequeueReusableCell(withIdentifier: "ChildCell", for: indexPath)
       guard let cell = cell as? ChildCell else { return UITableViewCell() }
       
+      cell.viewModel = childRows[indexPath.row]
+      cell.viewModel?.delegate = self
       cell.nameTextField.delegate = self
       cell.ageTextField.delegate = self
       
       // TODO: - Добавить корректную проверку на последнюю ячейку
-      if indexPath.row == 2 {
+      if indexPath.row == childRows.count - 1 {
         cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.main.bounds.width)
       }
       
@@ -149,8 +167,6 @@ extension FamilyListViewController: UITableViewDelegate {
         button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
       ])
       
-      
-      
       return view
     }
   }
@@ -165,5 +181,36 @@ extension FamilyListViewController: UITextFieldDelegate {
   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     textField.resignFirstResponder()
     return true
+  }
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    let pointInTable = textField.convert(textField.bounds.origin, to: tableView)
+    let textFieldIndexPath = tableView.indexPathForRow(at: pointInTable)
+    print(textFieldIndexPath, textField.tag)
+    if textFieldIndexPath?.section == 0 {
+      
+    } else {
+      
+    }
+  }
+}
+
+// MARK: - FamilyListViewInputProtocol
+extension FamilyListViewController: FamilyListViewInputProtocol {
+  
+  func reloadData(
+    forParent parentRows: [ParentCellViewModel],
+    andChildren childRows: [ChildCellViewModel]
+  ) {
+    self.parentRows = parentRows
+    self.childRows = childRows
+    tableView.reloadData()
+  }
+}
+
+// MARK: - ChildCellDelegate
+extension FamilyListViewController: ChildCellDelegate {
+  func deleteChild(withCell cell: ChildCell) {
+    // TODO: - Добавить логику удаления
   }
 }

@@ -29,4 +29,6 @@ final class FamilyListInteractor: FamilyListInteractorInputProtocol {
     let dataStore = FamilyListDataStore(family: family)
     presenter.familyDidReceive(with: dataStore)
   }
+  
+  //TODO: Добавить функции добавления, удаления
 }
