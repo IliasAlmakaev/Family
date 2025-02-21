@@ -22,6 +22,7 @@ protocol FamilyListInteractorOutputProtocol: AnyObject {
   func familyDidReceive(with dataStore: FamilyListDataStore)
   func addChild(with dataStore: FamilyListDataStore)
   func deleteChild(with dataStore: FamilyListDataStore)
+  func clearFamily(with dataStore: FamilyListDataStore)
 }
 
 final class FamilyListInteractor: FamilyListInteractorInputProtocol {
@@ -69,6 +70,9 @@ final class FamilyListInteractor: FamilyListInteractorInputProtocol {
   }
   
   func clearFamily() {
-    storageManager.clearFamily()
+    storageManager.clearFamily { family in
+      let dataStore = FamilyListDataStore(family: family)
+      presenter.clearFamily(with: dataStore)
+    }
   }
 }

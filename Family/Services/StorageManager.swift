@@ -60,9 +60,10 @@ final class StorageManager {
     completion(index)
   }
   
-  func clearFamily() {
+  func clearFamily(completion: (Family) -> ()) {
     family = getClearFamily()
     save()
+    completion(family)
   }
   
   private func save() {

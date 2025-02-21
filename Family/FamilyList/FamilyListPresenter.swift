@@ -53,7 +53,6 @@ final class FamilyListPresenter: FamilyListViewOutputProtocol {
   
   func clearFamily() {
     interactor.clearFamily()
-    interactor.getFamily()
   }
 }
 
@@ -84,6 +83,14 @@ extension FamilyListPresenter: FamilyListInteractorOutputProtocol {
   }
   
   func familyDidReceive(with dataStore: FamilyListDataStore) {
+    reloadData(with: dataStore)
+  }
+  
+  func clearFamily(with dataStore: FamilyListDataStore) {
+    reloadData(with: dataStore)
+  }
+  
+  private func reloadData(with dataStore: FamilyListDataStore) {
     self.dataStore = dataStore
     guard let family = dataStore.family else { return }
     
@@ -91,7 +98,7 @@ extension FamilyListPresenter: FamilyListInteractorOutputProtocol {
     let childRows: [ChildCellViewModel] = family.children.map {
       ChildCellViewModel(child: $0)
     }
-    //TODO: добавить логику по показу/скрытию кнопки "Добавить ребёнка"
+    
     view.reloadData(forParent: parentRows, andChildren: childRows)
   }
 }
