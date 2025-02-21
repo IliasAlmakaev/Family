@@ -26,6 +26,21 @@ final class FamilyListPresenter: FamilyListViewOutputProtocol {
     interactor.getFamily()
   }
   
+  func setPersonInfo(
+    withIndexPath indexPath: IndexPath,
+    textFieldTag: Int,
+    andText text: String
+  ) {
+    if indexPath.section == 0 {
+      textFieldTag == 0 ? interactor.setParentName(text) : interactor.setParentAge(text)
+    } else {
+      textFieldTag == 0 ?
+      interactor.setChildName(text, withIndex: indexPath.row) :
+      interactor.setChildAge(text, withIndex: indexPath.row)
+    }
+  }
+
+  
   func addMyChild() {
     
   }

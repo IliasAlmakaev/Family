@@ -16,6 +16,11 @@ protocol FamilyListViewInputProtocol: AnyObject {
 
 protocol FamilyListViewOutputProtocol {
   func viewDidLoad()
+  func setPersonInfo(
+    withIndexPath indexPath: IndexPath,
+    textFieldTag: Int,
+    andText text: String
+  )
   func addMyChild()
   func deleteChild()
   func clearFamily()
@@ -92,9 +97,7 @@ extension FamilyListViewController: UITableViewDataSource {
       let cell = tableView.dequeueReusableCell(withIdentifier: "ParentCell", for: indexPath)
       guard let cell = cell as? ParentCell else { return UITableViewCell() }
       
-      if parentRows.count != 0 {
-        cell.viewModel = parentRows[0]
-      }
+      cell.viewModel = parentRows[0]
       
       cell.nameTextField.delegate = self
       cell.ageTextField.delegate = self
@@ -185,13 +188,14 @@ extension FamilyListViewController: UITextFieldDelegate {
   
   func textFieldDidEndEditing(_ textField: UITextField) {
     let pointInTable = textField.convert(textField.bounds.origin, to: tableView)
-    let textFieldIndexPath = tableView.indexPathForRow(at: pointInTable)
-    print(textFieldIndexPath, textField.tag)
-    if textFieldIndexPath?.section == 0 {
-      
-    } else {
-      
-    }
+    guard let textFieldIndexPath = tableView.indexPathForRow(at: pointInTable),
+    let text = textField.text else { return }
+
+    presenter.setPersonInfo(
+      withIndexPath: textFieldIndexPath,
+      textFieldTag: textField.tag,
+      andText: text
+    )
   }
 }
 

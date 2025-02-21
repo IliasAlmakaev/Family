@@ -31,7 +31,7 @@ final class ChildCellViewModel: ChildCellViewModelProtocol {
   }
   
   var age: String {
-    "\(child.age ?? 0)"
+    child.age ?? ""
   }
   
   var child: Person

@@ -9,6 +9,13 @@ import Foundation
 
 protocol FamilyListInteractorInputProtocol {
   func getFamily()
+  func setParentName(_ name: String)
+  func setParentAge(_ age: String)
+  func setChildName(_ name: String, withIndex index: Int)
+  func setChildAge(_ age: String, withIndex index: Int)
+  func addChild()
+  func deleteChild(withIndex index: Int)
+  func clearFamily()
 }
 
 protocol FamilyListInteractorOutputProtocol: AnyObject {
@@ -16,7 +23,7 @@ protocol FamilyListInteractorOutputProtocol: AnyObject {
 }
 
 final class FamilyListInteractor: FamilyListInteractorInputProtocol {
-  
+
   private unowned let presenter: FamilyListInteractorOutputProtocol
   private let storageManager = StorageManager.shared
   
@@ -25,10 +32,35 @@ final class FamilyListInteractor: FamilyListInteractorInputProtocol {
   }
   
   func getFamily() {
-    guard let family = storageManager.getFamily() else { return }
-    let dataStore = FamilyListDataStore(family: family)
+    let dataStore = FamilyListDataStore(family: storageManager.getFamily())
     presenter.familyDidReceive(with: dataStore)
   }
   
-  //TODO: Добавить функции добавления, удаления
+  func setParentName(_ name: String) {
+    storageManager.setParentName(name)
+  }
+  
+  func setParentAge(_ age: String) {
+    storageManager.setParentAge(age)
+  }
+  
+  func setChildName(_ name: String, withIndex index: Int) {
+    storageManager.setChildName(name, withIndex: index)
+  }
+  
+  func setChildAge(_ age: String, withIndex index: Int) {
+    storageManager.setChildAge(age, withIndex: index)
+  }
+  
+  func addChild() {
+    storageManager.addChild()
+  }
+  
+  func deleteChild(withIndex index: Int) {
+    storageManager.deleteChild(withIndex: index)
+  }
+  
+  func clearFamily() {
+    storageManager.clearFamily()
+  }
 }

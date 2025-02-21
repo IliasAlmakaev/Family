@@ -30,7 +30,7 @@ final class ParentCellViewModel: ParentCellViewModelProtocol {
   }
   
   var age: String {
-    "\(parent.age ?? 0)"
+    parent.age ?? ""
   }
   
   var parent: Person

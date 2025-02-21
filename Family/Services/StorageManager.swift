@@ -10,27 +10,29 @@ import Foundation
 final class StorageManager {
   static let shared = StorageManager()
   
-  private var family: Family?
+  private var family: Family!
+  private let key = "Family"
   
   private init() {
-    guard let data = UserDefaults.standard.data(forKey: "Family"),
+    guard let data = UserDefaults.standard.data(forKey: key),
           let decoded = try? JSONDecoder().decode(Family.self, from: data) else {
+            family = Family(parent: Person(name: "", age: ""), children: [])
             return
           }
     
     family = decoded
   }
   
-  func getFamily() -> Family? {
+  func getFamily() -> Family {
     family
   }
   
-  func addParentName(_ name: String) {
+  func setParentName(_ name: String) {
     family?.parent.name = name
     save()
   }
   
-  func addParentAge(_ age: Int) {
+  func setParentAge(_ age: String) {
     family?.parent.age = age
     save()
   }
@@ -40,12 +42,12 @@ final class StorageManager {
     save()
   }
   
-  func addChildName(_ name: String, withIndex index: Int) {
+  func setChildName(_ name: String, withIndex index: Int) {
     family?.children[index].name = name
     save()
   }
   
-  func addChildAge(_ age: Int, withIndex index: Int) {
+  func setChildAge(_ age: String, withIndex index: Int) {
     family?.children[index].age = age
     save()
   }
@@ -57,12 +59,12 @@ final class StorageManager {
   
   func clearFamily() {
     family = nil
-    UserDefaults.standard.set(nil, forKey: "Family")
+    UserDefaults.standard.set(nil, forKey: key)
   }
   
   private func save() {
     if let encoded = try? JSONEncoder().encode(family) {
-      UserDefaults.standard.set(encoded, forKey: "Family")
+      UserDefaults.standard.set(encoded, forKey: key)
     }
   }
 }
