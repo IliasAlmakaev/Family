@@ -8,7 +8,8 @@
 import Foundation
 
 struct FamilyListDataStore {
-  var family: Family
+  var family: Family?
+  var child: Person?
 }
 
 final class FamilyListPresenter: FamilyListViewOutputProtocol {
@@ -42,7 +43,7 @@ final class FamilyListPresenter: FamilyListViewOutputProtocol {
 
   
   func addMyChild() {
-    
+    interactor.addChild()
   }
   
   func deleteChild() {
@@ -57,11 +58,24 @@ final class FamilyListPresenter: FamilyListViewOutputProtocol {
 
 // MARK: - FamilyListInteractorOutputProtocol
 extension FamilyListPresenter: FamilyListInteractorOutputProtocol {
+  func addChild(with dataStore: FamilyListDataStore) {
+    guard let child = dataStore.child else { return }
+    self.dataStore?.family?.children.append(child)
+    
+    guard let family = self.dataStore?.family else { return }
+    let childRows: [ChildCellViewModel] = family.children.map {
+      ChildCellViewModel(child: $0)
+    }
+    
+    view.addChild(forChildren: childRows)
+  }
+  
   func familyDidReceive(with dataStore: FamilyListDataStore) {
     self.dataStore = dataStore
+    guard let family = dataStore.family else { return }
     
-    let parentRows: [ParentCellViewModel] = [ParentCellViewModel(parent: dataStore.family.parent)]
-    let childRows: [ChildCellViewModel] = dataStore.family.children.map {
+    let parentRows: [ParentCellViewModel] = [ParentCellViewModel(parent: family.parent)]
+    let childRows: [ChildCellViewModel] = family.children.map {
       ChildCellViewModel(child: $0)
     }
     //TODO: добавить логику по показу/скрытию кнопки "Добавить ребёнка"

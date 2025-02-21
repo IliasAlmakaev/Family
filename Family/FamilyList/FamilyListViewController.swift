@@ -12,6 +12,7 @@ protocol FamilyListViewInputProtocol: AnyObject {
     forParent parentRows: [ParentCellViewModel],
     andChildren childRows: [ChildCellViewModel]
   )
+  func addChild(forChildren childRows: [ChildCellViewModel])
 }
 
 protocol FamilyListViewOutputProtocol {
@@ -66,7 +67,7 @@ class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {
   }
   
   @objc private func addMyChild() {
-    
+    presenter.addMyChild()
   }
   
   private func deleteChild() {
@@ -215,6 +216,12 @@ extension FamilyListViewController: UITextFieldDelegate {
 
 // MARK: - FamilyListViewInputProtocol
 extension FamilyListViewController: FamilyListViewInputProtocol {
+  func addChild(forChildren childRows: [ChildCellViewModel]) {
+    self.childRows = childRows
+    let row = childRows.count - 1
+    
+    tableView.insertRows(at: [IndexPath(row: row, section: 1)], with: .automatic)
+  }
   
   func reloadData(
     forParent parentRows: [ParentCellViewModel],

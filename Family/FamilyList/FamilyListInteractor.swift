@@ -20,6 +20,7 @@ protocol FamilyListInteractorInputProtocol {
 
 protocol FamilyListInteractorOutputProtocol: AnyObject {
   func familyDidReceive(with dataStore: FamilyListDataStore)
+  func addChild(with dataStore: FamilyListDataStore)
 }
 
 final class FamilyListInteractor: FamilyListInteractorInputProtocol {
@@ -53,7 +54,10 @@ final class FamilyListInteractor: FamilyListInteractorInputProtocol {
   }
   
   func addChild() {
-    storageManager.addChild()
+    storageManager.addChild { person in
+      let dataStore = FamilyListDataStore(child: person)
+      presenter.addChild(with: dataStore)
+    }
   }
   
   func deleteChild(withIndex index: Int) {

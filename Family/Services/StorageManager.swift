@@ -16,7 +16,7 @@ final class StorageManager {
   private init() {
     guard let data = UserDefaults.standard.data(forKey: key),
           let decoded = try? JSONDecoder().decode(Family.self, from: data) else {
-            family = Family(parent: Person(name: "", age: ""), children: [])
+            family = getClearFamily()
             return
           }
     
@@ -37,9 +37,11 @@ final class StorageManager {
     save()
   }
   
-  func addChild() {
-    family?.children.append(Person())
+  func addChild(completion: (Person) -> ()) {
+    let person = Person()
+    family?.children.append(person)
     save()
+    completion(person)
   }
   
   func setChildName(_ name: String, withIndex index: Int) {
@@ -58,7 +60,7 @@ final class StorageManager {
   }
   
   func clearFamily() {
-    family = Family(parent: Person(name: "", age: ""), children: [])
+    family = getClearFamily()
     save()
   }
   
@@ -66,5 +68,9 @@ final class StorageManager {
     if let encoded = try? JSONEncoder().encode(family) {
       UserDefaults.standard.set(encoded, forKey: key)
     }
+  }
+  
+  private func getClearFamily() -> Family {
+    Family(parent: Person(), children: [])
   }
 }
