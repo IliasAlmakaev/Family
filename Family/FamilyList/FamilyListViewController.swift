@@ -168,6 +168,7 @@ extension FamilyListViewController: UITableViewDelegate {
       button.setTitle("Добавить ребенка", for: .normal)
       button.setImage(UIImage(systemName: "plus"), for: .normal)
       button.roundedAndBordered(withColor: .systemBlue)
+      button.isHidden = childRows.count == 5
       
       view.addSubview(label)
       view.addSubview(button)
@@ -226,11 +227,16 @@ extension FamilyListViewController: FamilyListViewInputProtocol {
     self.childRows = childRows
     let row = childRows.count - 1
     
+    childRows.count == 5 ?
+    tableView.reloadSections(IndexSet(integer: 1), with: .automatic) :
     tableView.insertRows(at: [IndexPath(row: row, section: 1)], with: .automatic)
   }
   
   func deleteChild(forChildren childRows: [ChildCellViewModel], andIndex index: Int) {
     self.childRows = childRows
+    
+    childRows.count == 4 ?
+    tableView.reloadSections(IndexSet(integer: 1), with: .automatic) :
     tableView.deleteRows(at: [IndexPath(row: index, section: 1)], with: .automatic)
   }
 }
