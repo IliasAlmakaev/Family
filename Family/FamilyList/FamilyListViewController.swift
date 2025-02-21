@@ -13,6 +13,7 @@ protocol FamilyListViewInputProtocol: AnyObject {
     andChildren childRows: [ChildCellViewModel]
   )
   func addChild(forChildren childRows: [ChildCellViewModel])
+  func deleteChild(forChildren childRows: [ChildCellViewModel], andIndex index: Int)
 }
 
 protocol FamilyListViewOutputProtocol {
@@ -23,7 +24,7 @@ protocol FamilyListViewOutputProtocol {
     andText text: String
   )
   func addMyChild()
-  func deleteChild()
+  func deleteChild(withIndex index: Int)
   func clearFamily()
 }
 
@@ -68,10 +69,6 @@ class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {
   
   @objc private func addMyChild() {
     presenter.addMyChild()
-  }
-  
-  private func deleteChild() {
-    
   }
   
   private func showAlert() {
@@ -216,13 +213,6 @@ extension FamilyListViewController: UITextFieldDelegate {
 
 // MARK: - FamilyListViewInputProtocol
 extension FamilyListViewController: FamilyListViewInputProtocol {
-  func addChild(forChildren childRows: [ChildCellViewModel]) {
-    self.childRows = childRows
-    let row = childRows.count - 1
-    
-    tableView.insertRows(at: [IndexPath(row: row, section: 1)], with: .automatic)
-  }
-  
   func reloadData(
     forParent parentRows: [ParentCellViewModel],
     andChildren childRows: [ChildCellViewModel]
@@ -231,11 +221,24 @@ extension FamilyListViewController: FamilyListViewInputProtocol {
     self.childRows = childRows
     tableView.reloadData()
   }
+  
+  func addChild(forChildren childRows: [ChildCellViewModel]) {
+    self.childRows = childRows
+    let row = childRows.count - 1
+    
+    tableView.insertRows(at: [IndexPath(row: row, section: 1)], with: .automatic)
+  }
+  
+  func deleteChild(forChildren childRows: [ChildCellViewModel], andIndex index: Int) {
+    self.childRows = childRows
+    tableView.deleteRows(at: [IndexPath(row: index, section: 1)], with: .automatic)
+  }
 }
 
 // MARK: - ChildCellDelegate
 extension FamilyListViewController: ChildCellDelegate {
   func deleteChild(withCell cell: ChildCell) {
-    // TODO: - Добавить логику удаления
+    guard let indexPath = tableView.indexPath(for: cell) else { return }
+    presenter.deleteChild(withIndex: indexPath.row)
   }
 }

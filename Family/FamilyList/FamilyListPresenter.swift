@@ -46,8 +46,17 @@ final class FamilyListPresenter: FamilyListViewOutputProtocol {
     interactor.addChild()
   }
   
-  func deleteChild() {
+  func deleteChild(withIndex index: Int) {
+    interactor.deleteChild(withIndex: index)
     
+    self.dataStore?.family?.children.remove(at: index)
+    
+    guard let family = self.dataStore?.family else { return }
+    let childRows: [ChildCellViewModel] = family.children.map {
+      ChildCellViewModel(child: $0)
+    }
+    
+    view.deleteChild(forChildren: childRows, andIndex: index)
   }
   
   func clearFamily() {
