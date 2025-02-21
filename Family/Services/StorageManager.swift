@@ -58,8 +58,8 @@ final class StorageManager {
   }
   
   func clearFamily() {
-    family = nil
-    UserDefaults.standard.set(nil, forKey: key)
+    family = Family(parent: Person(name: "", age: ""), children: [])
+    save()
   }
   
   private func save() {

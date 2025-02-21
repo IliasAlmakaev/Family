@@ -50,7 +50,8 @@ final class FamilyListPresenter: FamilyListViewOutputProtocol {
   }
   
   func clearFamily() {
-    
+    interactor.clearFamily()
+    interactor.getFamily()
   }
 }
 

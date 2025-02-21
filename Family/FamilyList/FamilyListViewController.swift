@@ -50,6 +50,7 @@ class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {
   }
 
   @IBAction func clearButtonPressed() {
+    showAlert()
   }
   
   private func setupUI() {
@@ -70,6 +71,19 @@ class FamilyListViewController: UIViewController, UIGestureRecognizerDelegate {
   
   private func deleteChild() {
     
+  }
+  
+  private func showAlert() {
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    let clearAllAction = UIAlertAction(title: "Сбросить данные", style: .default) { [unowned self] _ in
+      presenter.clearFamily()
+    }
+    let cancelAction = UIAlertAction(title: "Отмена", style: .destructive, handler: nil)
+    
+    alert.addAction(clearAllAction)
+    alert.addAction(cancelAction)
+    
+    present(alert, animated: true, completion: nil)
   }
   
   @objc private func handleTap() {
