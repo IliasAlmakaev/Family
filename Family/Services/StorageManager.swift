@@ -54,9 +54,10 @@ final class StorageManager {
     save()
   }
   
-  func deleteChild(withIndex index: Int) {
+  func deleteChild(withIndex index: Int, completion: (Int) -> ()) {
     family?.children.remove(at: index)
     save()
+    completion(index)
   }
   
   func clearFamily() {

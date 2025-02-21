@@ -10,6 +10,7 @@ import Foundation
 struct FamilyListDataStore {
   var family: Family?
   var child: Person?
+  var index: Int?
 }
 
 final class FamilyListPresenter: FamilyListViewOutputProtocol {
@@ -48,15 +49,6 @@ final class FamilyListPresenter: FamilyListViewOutputProtocol {
   
   func deleteChild(withIndex index: Int) {
     interactor.deleteChild(withIndex: index)
-    
-    self.dataStore?.family?.children.remove(at: index)
-    
-    guard let family = self.dataStore?.family else { return }
-    let childRows: [ChildCellViewModel] = family.children.map {
-      ChildCellViewModel(child: $0)
-    }
-    
-    view.deleteChild(forChildren: childRows, andIndex: index)
   }
   
   func clearFamily() {
@@ -77,6 +69,18 @@ extension FamilyListPresenter: FamilyListInteractorOutputProtocol {
     }
     
     view.addChild(forChildren: childRows)
+  }
+  
+  func deleteChild(with dataStore: FamilyListDataStore) {
+    guard let index = dataStore.index else { return }
+    self.dataStore?.family?.children.remove(at: index)
+    
+    guard let family = self.dataStore?.family else { return }
+    let childRows: [ChildCellViewModel] = family.children.map {
+      ChildCellViewModel(child: $0)
+    }
+    
+    view.deleteChild(forChildren: childRows, andIndex: index)
   }
   
   func familyDidReceive(with dataStore: FamilyListDataStore) {
